@@ -1,0 +1,113 @@
+<!-- templates/results.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #f4f4f4; 
+            font-family: 'Arial', sans-serif; 
+            margin: 0;
+        }
+
+        h1, h2 {
+            color: #e64949;
+        }
+
+        h1 {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-top: 10px;
+        }
+
+        .result-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 20px 0;
+        }
+
+        .pokemon-container, .pet-container {
+            width: 70%;
+            box-sizing: border-box;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #fff; 
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+        }
+
+        .pet-name {
+            font-size: 28px;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+
+        .pokemon-image, .animal-image {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 10px;
+        }
+
+        .pokemon-image {
+            max-width: 50%; 
+        }
+
+        .scroll-message {
+            font-size: 18px;
+            margin-top: 20px;
+            color: #777; 
+        }
+    </style>
+</head>
+<body>
+    <h1>Quiz Results</h1>
+
+    <div class="result-container">
+        <div class="pokemon-container">
+            <h2>Matched Pokemon:</h2>
+            {% if matched_pokemon %}
+                <p class="pet-name">{{ matched_pokemon.name|upper }}</p>
+                <img class="pokemon-image" src="{{ matched_pokemon.image_url }}" alt="{{ matched_pokemon.name }}">
+            {% else %}
+                <p>No matched Pokemon found.</p>
+            {% endif %}
+        </div>
+
+        <p class="scroll-message">Scroll down to see your Matched Pet!</p>
+
+        <div class="pet-container">
+            <h2>Matched Pet:</h2>
+            {% if matched_animal %}
+                <p class="pet-name">{{ matched_animal.name }} - Species: {{ matched_animal.species }}</p>
+                <img class="animal-image" src="{{ matched_animal.image_url }}" alt="{{ matched_animal.name }}">
+                <h2>Description:</h2>
+                <p class="animal-description">{{ matched_animal.description }}</p>
+                <p class="learn-more">
+                    <a href="{{ matched_animal.adoption_info.url }}" target="_blank">Learn More</a>
+                </p>
+                <ul style="list-style-type: none; padding: 0;">
+                    <li>Email: {{ matched_animal.adoption_info.contact.email }}</li>
+                    <li>Phone: {{ matched_animal.adoption_info.contact.phone }}</li>
+                </ul>
+            {% else %}
+                <p>No matched Pet found.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
